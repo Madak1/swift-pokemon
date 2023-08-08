@@ -9,7 +9,7 @@ import UIKit
 
 class DetailVC: UIViewController {
     
-    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var imageView: PokeImage!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var weightLabel: UILabel!
     @IBOutlet var heightLabel: UILabel!
@@ -17,7 +17,7 @@ class DetailVC: UIViewController {
     @IBOutlet var ability2Label: UILabel!
     @IBOutlet var ability3Label: UILabel!
     @IBOutlet var statusLabel: UILabel!
-    @IBOutlet var catchBtn: UIButton!
+    @IBOutlet var catchBtn: PokeButton!
     
     @IBOutlet var imageSpinner: UIActivityIndicatorView!
     
@@ -64,21 +64,22 @@ class DetailVC: UIViewController {
     
     private func setupLabels() {
         if let poke = self.pokemon {
-            self.nameLabel.text = poke.name
+            self.nameLabel.text = poke.name.capitalized
             self.weightLabel.text = String(Double(poke.weight)/10) + "kg"
             self.heightLabel.text = String(Double(poke.height)/10) + "m"
             for (i, ability) in poke.abilities.enumerated() {
                 switch i {
                 case 0:
-                    self.ability1Label.text = ability
+                    self.ability1Label.text = ability.capitalized
                 case 1:
-                    self.ability2Label.text = ability
+                    self.ability2Label.text = ability.capitalized
                 default:
-                    self.ability3Label.text = ability
+                    self.ability3Label.text = ability.capitalized
                 }
             }
             self.statusLabel.text = poke.isCaught ? "Caught" : "-"
-            self.catchBtn.setTitle(poke.isCaught ? "Release" : "Catch", for: .normal)
+            poke.isCaught ? imageView.onStyle() : imageView.offStyle()
+            poke.isCaught ? catchBtn.onStyle() : catchBtn.offStyle()
         }
     }
     
@@ -87,7 +88,8 @@ class DetailVC: UIViewController {
         if let poke = pokemon {
             delegate?.didChangeStatusValue(id: poke.id, newValue: poke.isCaught)
             statusLabel.text = poke.isCaught ? "Caught" : "-"
-            catchBtn.setTitle(poke.isCaught ? "Release" : "Catch", for: .normal)
+            poke.isCaught ? imageView.onStyle() : imageView.offStyle()
+            poke.isCaught ? catchBtn.onStyle() : catchBtn.offStyle()
         }
     }
     

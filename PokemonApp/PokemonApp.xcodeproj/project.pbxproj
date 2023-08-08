@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D71299F62A8273DB00BD7ADC /* DetailViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71299F52A8273DB00BD7ADC /* DetailViews.swift */; };
+		D71299F82A8277D900BD7ADC /* PokeFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71299F72A8277D900BD7ADC /* PokeFonts.swift */; };
+		D71299FD2A8285E300BD7ADC /* NavViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71299FC2A8285E300BD7ADC /* NavViews.swift */; };
+		D71299FF2A82868E00BD7ADC /* NavController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71299FE2A82868E00BD7ADC /* NavController+Ext.swift */; };
+		D7129A042A8292A300BD7ADC /* HomeViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7129A032A8292A300BD7ADC /* HomeViews.swift */; };
+		D7129A082A82B0AB00BD7ADC /* UITextField+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7129A072A82B0AB00BD7ADC /* UITextField+Ext.swift */; };
 		D7753EE32A7D5BD400B94619 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7753EE22A7D5BD400B94619 /* DetailVC.swift */; };
 		D797E0952A7EB70F00891528 /* PokeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D797E0942A7EB70F00891528 /* PokeCell.swift */; };
 		D7AD32652A7D28E000F0B0FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AD32642A7D28E000F0B0FF /* AppDelegate.swift */; };
@@ -27,6 +33,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D71299F52A8273DB00BD7ADC /* DetailViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViews.swift; sourceTree = "<group>"; };
+		D71299F72A8277D900BD7ADC /* PokeFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeFonts.swift; sourceTree = "<group>"; };
+		D71299FC2A8285E300BD7ADC /* NavViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavViews.swift; sourceTree = "<group>"; };
+		D71299FE2A82868E00BD7ADC /* NavController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavController+Ext.swift"; sourceTree = "<group>"; };
+		D7129A032A8292A300BD7ADC /* HomeViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViews.swift; sourceTree = "<group>"; };
+		D7129A072A82B0AB00BD7ADC /* UITextField+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ext.swift"; sourceTree = "<group>"; };
 		D7753EE22A7D5BD400B94619 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		D797E0942A7EB70F00891528 /* PokeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeCell.swift; sourceTree = "<group>"; };
 		D7AD32612A7D28E000F0B0FF /* PokemonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokemonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,6 +71,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D71299FB2A827D4C00BD7ADC /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				D71299FC2A8285E300BD7ADC /* NavViews.swift */,
+				D7129A032A8292A300BD7ADC /* HomeViews.swift */,
+				D71299F52A8273DB00BD7ADC /* DetailViews.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
 		D7AD32582A7D28E000F0B0FF = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +124,7 @@
 		D7AD32792A7D291000F0B0FF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D71299FB2A827D4C00BD7ADC /* CustomViews */,
 				D7AD326A2A7D28E000F0B0FF /* Main.storyboard */,
 				D7AD326F2A7D28E100F0B0FF /* LaunchScreen.storyboard */,
 			);
@@ -132,6 +155,8 @@
 			isa = PBXGroup;
 			children = (
 				D7AD32852A7D329200F0B0FF /* UIColor+Ext.swift */,
+				D71299FE2A82868E00BD7ADC /* NavController+Ext.swift */,
+				D7129A072A82B0AB00BD7ADC /* UITextField+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -141,6 +166,7 @@
 			children = (
 				D7F2D4102A80605A0091AF4C /* PokeApi.swift */,
 				D7AD32822A7D302200F0B0FF /* PokeColors.swift */,
+				D71299F72A8277D900BD7ADC /* PokeFonts.swift */,
 				D7F2D4192A81B9430091AF4C /* CheckBox.swift */,
 			);
 			path = Constants;
@@ -233,14 +259,20 @@
 				D7F2D4112A80605A0091AF4C /* PokeApi.swift in Sources */,
 				D7AD32812A7D2B9200F0B0FF /* Pokemon.swift in Sources */,
 				D7F2D4142A80918A0091AF4C /* HTTP.swift in Sources */,
+				D7129A042A8292A300BD7ADC /* HomeViews.swift in Sources */,
 				D7AD327D2A7D29B600F0B0FF /* HomeVC.swift in Sources */,
 				D7F2D41A2A81B9430091AF4C /* CheckBox.swift in Sources */,
 				D7AD32832A7D302200F0B0FF /* PokeColors.swift in Sources */,
 				D7753EE32A7D5BD400B94619 /* DetailVC.swift in Sources */,
+				D7129A082A82B0AB00BD7ADC /* UITextField+Ext.swift in Sources */,
 				D797E0952A7EB70F00891528 /* PokeCell.swift in Sources */,
 				D7AD32652A7D28E000F0B0FF /* AppDelegate.swift in Sources */,
 				D7F2D4162A8092DD0091AF4C /* Endpoint.swift in Sources */,
+				D71299FF2A82868E00BD7ADC /* NavController+Ext.swift in Sources */,
 				D7AD32672A7D28E000F0B0FF /* SceneDelegate.swift in Sources */,
+				D71299F82A8277D900BD7ADC /* PokeFonts.swift in Sources */,
+				D71299FD2A8285E300BD7ADC /* NavViews.swift in Sources */,
+				D71299F62A8273DB00BD7ADC /* DetailViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

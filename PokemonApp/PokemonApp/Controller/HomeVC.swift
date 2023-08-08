@@ -59,7 +59,7 @@ class HomeVC: UIViewController {
     private func startFiltering() {
         let nameFilter = searchBar.text ?? ""
         let typeFilter = typeSelectTextField.text ?? ""
-        let statusFilterOn = (self.checkBox.currentImage == CheckBox.on)
+        let statusFilterOn = (self.checkBox.currentImage == CheckBox.checkImage)
         pokeManager.filteringPokemonsBy(name: nameFilter, type: typeFilter, status: statusFilterOn)
     }
 
@@ -69,7 +69,7 @@ class HomeVC: UIViewController {
     
     @IBAction func checkBoxTapped(_ sender: UIButton) {
         self.checkBox.setImage(
-            sender.currentImage == CheckBox.off ? CheckBox.on : CheckBox.off,
+            sender.currentImage == CheckBox.uncheckImage ? CheckBox.checkImage : CheckBox.uncheckImage,
             for: .normal
         )
         self.startFiltering()
@@ -113,11 +113,11 @@ extension HomeVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pokeManager.pokeTypes[row]
+        return pokeManager.pokeTypes[row].capitalized
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        typeSelectTextField.text = pokeManager.pokeTypes[row]
+        typeSelectTextField.text = pokeManager.pokeTypes[row].capitalized
         typeSelectTextField.resignFirstResponder()
         self.startFiltering()
     }

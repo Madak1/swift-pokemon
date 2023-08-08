@@ -8,6 +8,7 @@
 import UIKit
 
 struct CheckBox {
-    static let on = UIImage(systemName: "checkmark.square")
-    static let off = UIImage(systemName: "square")
+    static let checkImage = UIImage(systemName: "checkmark.square")
+    static let uncheckImage = UIImage(systemName: "square")
 }
+

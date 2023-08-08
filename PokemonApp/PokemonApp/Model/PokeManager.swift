@@ -74,8 +74,8 @@ class PokeManager {
         var tmpPokemons = name.isEmpty ? allPokemon : allPokemon.filter(
             {$0.name.lowercased().contains(name.lowercased())}
         )
-        // Filtering by type TODO: optional
-        tmpPokemons = type.isEmpty ? tmpPokemons : tmpPokemons.filter({$0.types.contains(type)})
+        // Filtering by type
+        tmpPokemons = type.isEmpty ? tmpPokemons : tmpPokemons.filter({$0.types.contains(type.lowercased())})
         // Filtering by status
         self.pokemons = !status ? tmpPokemons : tmpPokemons.filter({$0.isCaught == true})
     }

@@ -11,10 +11,11 @@ class PokeCell: UITableViewCell {
     
     static let identifier = "PokeCell"
     
+    @IBOutlet var cell: PokeCellBG!
     @IBOutlet var name: UILabel!
     @IBOutlet var type: UILabel!
     @IBOutlet var status: UILabel!
-    @IBOutlet var catchBtn: UIButton!
+    @IBOutlet var catchBtn: PokeButton!
     
     weak var delegate: CatchBtnDelegate?
     
@@ -22,10 +23,11 @@ class PokeCell: UITableViewCell {
     
     func configure(with pokemon: Pokemon) {
         self.pokemon = pokemon
-        self.name.text = pokemon.name
-        self.type.text = pokemon.types.joined(separator: ", ")
+        self.name.text = pokemon.name.capitalized
+        self.type.text = pokemon.types.joined(separator: ", ").capitalized
         self.status.text = pokemon.isCaught ? "Caught" : "-"
-        self.catchBtn.setTitle(pokemon.isCaught ? "R" : "C", for: .normal)
+        self.pokemon.isCaught ? catchBtn.onStyle() : catchBtn.offStyle()
+        self.pokemon.isCaught ? cell.onStyle() : cell.offStyle()
     }
 
     @IBAction func catchBtnTapped(_ sender: UIButton) {
@@ -33,7 +35,8 @@ class PokeCell: UITableViewCell {
         if let poke = pokemon {
             delegate?.didChangeStatusValue(id: poke.id, newValue: poke.isCaught)
             status.text = poke.isCaught ? "Caught" : "-"
-            catchBtn.setTitle(poke.isCaught ? "R" : "C", for: .normal)
+            poke.isCaught ? catchBtn.onStyle() : catchBtn.offStyle()
+            poke.isCaught ? cell.onStyle() : cell.offStyle()
         }
     }
 }

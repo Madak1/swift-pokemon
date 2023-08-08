@@ -7,19 +7,72 @@
 
 import UIKit
 
-protocol StatusChangerDelegate: AnyObject {
-    func didChangeStatusValue(id: UUID, newValue: Bool)
-}
-
-class HomeVC: UIViewController, StatusChangerDelegate {
+class HomeVC: UIViewController {
     
+    @IBOutlet var searchBar: UITextField!
+    @IBOutlet var typeSelectTextField: UITextField!
+    @IBOutlet var checkBox: UIButton!
     @IBOutlet var tableView: UITableView!
     
-    var pokemons: [Pokemon] = []
-
+    var tableViewSpinner = UIActivityIndicatorView()
+    var typePickerView = UIPickerView()
+    
+    private let pokeManager: PokeManager = PokeManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        pokemons = fetchTestData()
+        self.setupSpinner()
+        self.pokeManager.fetchPokemons()
+        self.pokeManager.onPokemonsUpdated = { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+                self?.tableViewSpinner.stopAnimating()
+            }
+        }
+        self.pokeManager.fetchPokemonTypes()
+        self.pokeManager.onTypesUpdated = { [weak self] in
+            DispatchQueue.main.async {
+                self?.setupPicker()
+            }
+        }
+    }
+    
+    private func setupSpinner() {
+        view.addSubview(tableViewSpinner)
+        
+        tableViewSpinner.style = .large
+        tableViewSpinner.color = .gray
+        tableViewSpinner.hidesWhenStopped = true
+        tableViewSpinner.startAnimating()
+        
+        tableViewSpinner.translatesAutoresizingMaskIntoConstraints = false
+        tableViewSpinner.centerXAnchor.constraint(equalTo: tableView.centerXAnchor).isActive = true
+        tableViewSpinner.centerYAnchor.constraint(equalTo: tableView.centerYAnchor).isActive = true
+    }
+    
+    private func setupPicker() {
+        typeSelectTextField.inputView = typePickerView
+        typePickerView.delegate = self
+        typePickerView.dataSource = self
+    }
+    
+    private func startFiltering() {
+        let nameFilter = searchBar.text ?? ""
+        let typeFilter = typeSelectTextField.text ?? ""
+        let statusFilterOn = (self.checkBox.currentImage == CheckBox.on)
+        pokeManager.filteringPokemonsBy(name: nameFilter, type: typeFilter, status: statusFilterOn)
+    }
+
+    @IBAction func searchHandler(_ sender: UITextField) {
+        self.startFiltering()
+    }
+    
+    @IBAction func checkBoxTapped(_ sender: UIButton) {
+        self.checkBox.setImage(
+            sender.currentImage == CheckBox.off ? CheckBox.on : CheckBox.off,
+            for: .normal
+        )
+        self.startFiltering()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -27,101 +80,57 @@ class HomeVC: UIViewController, StatusChangerDelegate {
         destVC.delegate = self
         destVC.pokemon = sender as? Pokemon
     }
-
-    func didChangeStatusValue(id: UUID, newValue: Bool) {
-        guard let idx = pokemons.firstIndex(where: {$0.id==id}) else {
-            return
-        }
-        pokemons[idx].isCaught = newValue
-        tableView.reloadData()
-    }
     
 }
 
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pokemons.count
+        return pokeManager.pokemons.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PokemonCell") as! PokemonCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PokeCell.identifier) as? PokeCell else {
+            fatalError("Unable to dequeue PokeCell in HomeVC")
+        }
         cell.delegate = self
-        cell.setPokemon(pokemon: pokemons[indexPath.row])
+        cell.configure(with: pokeManager.pokemons[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "ToDetailsVC", sender: pokemons[indexPath.row])
+        performSegue(withIdentifier: "ToDetailsVC", sender: pokeManager.pokemons[indexPath.row])
     }
     
 }
 
+extension HomeVC: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pokeManager.pokeTypes.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pokeManager.pokeTypes[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        typeSelectTextField.text = pokeManager.pokeTypes[row]
+        typeSelectTextField.resignFirstResponder()
+        self.startFiltering()
+    }
+}
 
-extension HomeVC {
-    func fetchTestData() -> [Pokemon] {
-        let p00 = Pokemon(
-            name: "Charmander",
-            type: "Fire",
-            weight: 85,
-            height: 6,
-            abilities: [
-                PokeAbility(name: "blaze", isHiden: false),
-                PokeAbility(name: "solar-power", isHiden: true)
-            ]
-        )
-        let p01 = Pokemon(
-            name: "Pikachu",
-            type: "Electric",
-            weight: 65,
-            height: 4,
-            abilities: [
-                PokeAbility(name: "static", isHiden: false),
-                PokeAbility(name: "lightning-rod", isHiden: true)
-            ]
-        )
-        let p02 = Pokemon(
-            name: "Dugtrio",
-            type: "Ground",
-            weight: 333,
-            height: 7,
-            abilities: [
-                PokeAbility(name: "sand-veil", isHiden: false),
-                PokeAbility(name: "arena-trap", isHiden: false),
-                PokeAbility(name: "sand-force", isHiden: true)
-            ]
-        )
-        let p03 = Pokemon(
-            name: "Mewtwo",
-            type: "Psychic",
-            weight: 1220,
-            height: 20,
-            abilities: [
-                PokeAbility(name: "pressure", isHiden: false),
-                PokeAbility(name: "unnerve", isHiden: true)
-            ]
-        )
-        let p04 = Pokemon(
-            name: "Arbok",
-            type: "Poison",
-            weight: 650,
-            height: 35,
-            abilities: [
-                PokeAbility(name: "intimidate", isHiden: false),
-                PokeAbility(name: "shed-skin", isHiden: false),
-                PokeAbility(name: "unnerve", isHiden: true)
-            ]
-        )
-        let p05 = Pokemon(
-            name: "Chimecho",
-            type: "Psychic",
-            weight: 10,
-            height: 6,
-            abilities: [
-                PokeAbility(name: "levitate", isHiden: false)
-              
-            ]
-        )
-        return [p00, p01, p02, p03, p04, p05]
+protocol CatchBtnDelegate: AnyObject {
+    func didChangeStatusValue(id: Int, newValue: Bool)
+}
+
+extension HomeVC: CatchBtnDelegate {
+    func didChangeStatusValue(id: Int, newValue: Bool) {
+        self.pokeManager.updateCatchStatus(where: id, to: newValue)
+        self.startFiltering()
     }
 }
 

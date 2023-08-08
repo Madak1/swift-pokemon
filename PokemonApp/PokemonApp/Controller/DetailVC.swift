@@ -9,52 +9,76 @@ import UIKit
 
 class DetailVC: UIViewController {
     
-    @IBOutlet var image: UIImageView!
-    @IBOutlet var name: UILabel!
-    @IBOutlet var weight: UILabel!
-    @IBOutlet var height: UILabel!
-    @IBOutlet var ability1: UILabel!
-    @IBOutlet var ability2: UILabel!
-    @IBOutlet var ability3: UILabel!
-    @IBOutlet var status: UILabel!
+    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var weightLabel: UILabel!
+    @IBOutlet var heightLabel: UILabel!
+    @IBOutlet var ability1Label: UILabel!
+    @IBOutlet var ability2Label: UILabel!
+    @IBOutlet var ability3Label: UILabel!
+    @IBOutlet var statusLabel: UILabel!
     @IBOutlet var catchBtn: UIButton!
     
-    weak var delegate: StatusChangerDelegate?
+    @IBOutlet var imageSpinner: UIActivityIndicatorView!
     
+    weak var delegate: CatchBtnDelegate?
     var pokemon: Pokemon?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupSpinner()
         self.setupImage()
         self.setupLabels()
     }
     
-    private func setupImage() {
-        // TODO
+    private func setupSpinner() {
+        imageSpinner.style = .large
+        imageSpinner.color = .gray
+        imageSpinner.hidesWhenStopped = true
+        imageSpinner.startAnimating()
     }
     
-    private func setupLabels() {
-        if let poke = pokemon {
-            name.text = poke.name
-            weight.text = String(poke.weight/10) + "kg"
-            height.text = String(poke.height/10) + "m"
-            for ability in poke.abilities {
-                if !ability.isHiden {
-                    findNextAbility().text = ability.name
+    private func setupImage() {
+        if let imgUrlString = pokemon?.imageURL {
+            guard let imgUrl = URL(string: imgUrlString) else { return }
+            let dataTask = URLSession.shared.dataTask(with: imgUrl) { (data, _, error) in
+                if let error = error {
+                    print("Error fetching image: \(error.localizedDescription)")
+                    return
+                }
+                guard let imageData = data else {
+                    print("No image data received.")
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.imageView.image = UIImage(data: imageData)
+                    self.imageSpinner.stopAnimating()
                 }
             }
-            status.text = poke.isCaught ? "Caught" : "-"
-            catchBtn.setTitle(poke.isCaught ? "Release" : "Catch", for: .normal)
+            dataTask.resume()
+        } else {
+            self.imageView.image = UIImage(systemName: "questionmark")
+            self.imageSpinner.stopAnimating()
         }
     }
     
-    private func findNextAbility() -> UILabel {
-        if ability1.text == "Label" {
-            return ability1
-        } else if ability2.text == "Label" {
-            return ability2
-        } else {
-            return ability3
+    private func setupLabels() {
+        if let poke = self.pokemon {
+            self.nameLabel.text = poke.name
+            self.weightLabel.text = String(Double(poke.weight)/10) + "kg"
+            self.heightLabel.text = String(Double(poke.height)/10) + "m"
+            for (i, ability) in poke.abilities.enumerated() {
+                switch i {
+                case 0:
+                    self.ability1Label.text = ability
+                case 1:
+                    self.ability2Label.text = ability
+                default:
+                    self.ability3Label.text = ability
+                }
+            }
+            self.statusLabel.text = poke.isCaught ? "Caught" : "-"
+            self.catchBtn.setTitle(poke.isCaught ? "Release" : "Catch", for: .normal)
         }
     }
     
@@ -62,7 +86,7 @@ class DetailVC: UIViewController {
         pokemon?.isCaught.toggle()
         if let poke = pokemon {
             delegate?.didChangeStatusValue(id: poke.id, newValue: poke.isCaught)
-            status.text = poke.isCaught ? "Caught" : "-"
+            statusLabel.text = poke.isCaught ? "Caught" : "-"
             catchBtn.setTitle(poke.isCaught ? "Release" : "Catch", for: .normal)
         }
     }

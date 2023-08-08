@@ -7,24 +7,25 @@
 
 import UIKit
 
-class PokemonCell: UITableViewCell {
+class PokeCell: UITableViewCell {
     
+    static let identifier = "PokeCell"
     
     @IBOutlet var name: UILabel!
     @IBOutlet var type: UILabel!
     @IBOutlet var status: UILabel!
     @IBOutlet var catchBtn: UIButton!
     
-    weak var delegate: StatusChangerDelegate?
+    weak var delegate: CatchBtnDelegate?
     
-    var pokemon: Pokemon?
+    private var pokemon: Pokemon!
     
-    func setPokemon(pokemon: Pokemon) {
+    func configure(with pokemon: Pokemon) {
         self.pokemon = pokemon
-        name.text = pokemon.name
-        type.text = pokemon.type
-        status.text = pokemon.isCaught ? "Caught" : "-"
-        catchBtn.setTitle(pokemon.isCaught ? "R" : "C", for: .normal)
+        self.name.text = pokemon.name
+        self.type.text = pokemon.types.joined(separator: ", ")
+        self.status.text = pokemon.isCaught ? "Caught" : "-"
+        self.catchBtn.setTitle(pokemon.isCaught ? "R" : "C", for: .normal)
     }
 
     @IBAction func catchBtnTapped(_ sender: UIButton) {

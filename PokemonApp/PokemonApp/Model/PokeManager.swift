@@ -103,7 +103,7 @@ class PokeManager {
             case .success(let result):
                 self.pokeTypes = result.types.map({$0.name})
             case .failure(let error):
-                print(error)
+                print(error.description)
             }
         }
     }
@@ -116,7 +116,7 @@ class PokeManager {
             case .success(let pokeUrlList):
                 self.pokeUrlList = pokeUrlList.pokemons
             case .failure(let error):
-                print(error)
+                print(error.description)
             }
         }
     }
@@ -129,7 +129,7 @@ class PokeManager {
             case .success(let pokemon):
                 self.allPokemon.append(pokemon)
             case .failure(let error):
-                print(error)
+                print(error.description)
             }
         }
     }
@@ -142,7 +142,7 @@ class PokeManager {
             case .success(let pokemon):
                 self.allPokemon.append(pokemon)
             case .failure(let error):
-                print(error)
+                print(error.description)
             }
         }
     }

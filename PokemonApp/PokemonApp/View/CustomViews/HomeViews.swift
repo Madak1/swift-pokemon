@@ -33,7 +33,7 @@ class PokeSelectorTitle: UILabel {
     
     private func setupText() {
         self.textColor = PokeColors.gray
-        self.font = UIFont(name: PokeFonts.typeTitle.style, size: PokeFonts.typeTitle.size)
+        self.font = UIFont(name: PokeFonts.helveticaBold, size: 13)
     }
     
 }
@@ -70,6 +70,16 @@ class PokeCheckBox: UIButton {
         self.tintColor = PokeColors.gray
     }
     
+    func onStyle() {
+        self.tag = 1
+        self.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+    }
+    
+    func offStyle() {
+        self.tag = 0
+        self.setImage(UIImage(systemName: "square"), for: .normal)
+    }
+    
 }
 
 // MARK: Pokemon List Title Background
@@ -98,7 +108,7 @@ class PokeListTitle: UILabel {
     
     private func setupText() {
         self.textColor = PokeColors.gray
-        self.font = UIFont(name: PokeFonts.listTitle.style, size: PokeFonts.listTitle.size)
+        self.font = UIFont(name: PokeFonts.helveticaBold, size: 12)
     }
     
 }
@@ -157,7 +167,7 @@ class PokeCellText: UILabel {
     
     private func setupText() {
         self.textColor = PokeColors.gray
-        self.font = UIFont(name: PokeFonts.cellText.style, size: PokeFonts.cellText.size)
+        self.font = UIFont(name: PokeFonts.helvetica, size: 12)
     }
     
 }
@@ -175,7 +185,7 @@ class PokeButton: UIButton {
         self.offStyle()
         self.setTitleColor(PokeColors.white, for: .normal)
         self.setTitleColor(PokeColors.gray, for: .highlighted)
-        self.titleLabel?.font = UIFont(name: PokeFonts.button.style, size: PokeFonts.button.size)
+        self.titleLabel?.font = UIFont(name: PokeFonts.helvetica, size: 13)
         self.layer.cornerRadius = frame.size.height/6
     }
     

@@ -14,7 +14,6 @@ enum Endpoint {
     case fetchPokemonByID(url: String = "/api/v2/pokemon", id: Int)
     case fetchPokemonByName(url: String = "/api/v2/pokemon", name: String)
     case fetchPokemonTypes(url: String = "/api/v2/type")
-    case fetchPokemonImage(url: String)
     
     // Create request
     var request: URLRequest? {
@@ -47,8 +46,6 @@ enum Endpoint {
         case .fetchPokemonByName(url: let url, name: let name):
             return url + "/" + name
         case .fetchPokemonTypes(url: let url):
-            return url
-        case .fetchPokemonImage(url: let url):
             return url
         }
     }
@@ -88,7 +85,7 @@ extension URLRequest {
     mutating func addValues(for endpoint: Endpoint) {
         switch endpoint {
         default:
-            // Content-Type and application/json doesn't need for GET request. (So this part it not necessary)
+            // Content-Type and application/json are not needed for GET request. (So this part is not necessary)
             self.setValue(HTTP.Headers.Value.applicationJson.rawValue, forHTTPHeaderField: HTTP.Headers.Key.contentType.rawValue)
         }
     }

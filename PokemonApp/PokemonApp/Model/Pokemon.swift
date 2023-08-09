@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: All Pokemon Types
+// MARK: All Pokemon Type
 
 struct PokemonTypes: Decodable {
     let count: Int

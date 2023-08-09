@@ -11,9 +11,8 @@ class HomeVC: UIViewController {
     
     @IBOutlet var searchBar: UITextField!
     @IBOutlet var typeSelectTextField: UITextField!
-    @IBOutlet var checkBox: UIButton!
+    @IBOutlet var checkBox: PokeCheckBox!
     @IBOutlet var tableView: UITableView!
-    
     var tableViewSpinner = UIActivityIndicatorView()
     var typePickerView = UIPickerView()
     
@@ -22,17 +21,25 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupSpinner()
+        self.getPokemonTypes()
+        self.getPokemons()
+    }
+    
+    private func getPokemonTypes() {
+        self.pokeManager.fetchPokemonTypes()
+        self.pokeManager.onTypesUpdated = { [weak self] in
+            DispatchQueue.main.async {
+                self?.setupPicker()
+            }
+        }
+    }
+    
+    private func getPokemons() {
         self.pokeManager.fetchPokemons()
         self.pokeManager.onPokemonsUpdated = { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
                 self?.tableViewSpinner.stopAnimating()
-            }
-        }
-        self.pokeManager.fetchPokemonTypes()
-        self.pokeManager.onTypesUpdated = { [weak self] in
-            DispatchQueue.main.async {
-                self?.setupPicker()
             }
         }
     }
@@ -59,7 +66,7 @@ class HomeVC: UIViewController {
     private func startFiltering() {
         let nameFilter = searchBar.text ?? ""
         let typeFilter = typeSelectTextField.text ?? ""
-        let statusFilterOn = (self.checkBox.currentImage == CheckBox.checkImage)
+        let statusFilterOn = (self.checkBox.tag == 1)
         pokeManager.filteringPokemonsBy(name: nameFilter, type: typeFilter, status: statusFilterOn)
     }
 
@@ -68,10 +75,7 @@ class HomeVC: UIViewController {
     }
     
     @IBAction func checkBoxTapped(_ sender: UIButton) {
-        self.checkBox.setImage(
-            sender.currentImage == CheckBox.uncheckImage ? CheckBox.checkImage : CheckBox.uncheckImage,
-            for: .normal
-        )
+        sender.tag == 0 ? checkBox.onStyle() : checkBox.offStyle()
         self.startFiltering()
     }
     

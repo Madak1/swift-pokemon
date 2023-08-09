@@ -14,6 +14,7 @@ struct PokeColors {
     static let yellow = UIColor(r: 255, g: 203, b: 5, a: 1)
     static let blue = UIColor(r: 46, g: 110, b: 181, a: 1)
     static let gray = UIColor(r: 110, g: 110, b: 110, a: 1)
+    
     static let detailText = UIColor(r: 103, g: 109, b: 116, a: 1) // Gray
     static let oddRow = UIColor(r: 46, g: 110, b: 181, a: 0.24) // Light blue
     static let evenRow = UIColor(r: 255, g: 203, b: 5, a: 0.24) // Light yellow

@@ -13,6 +13,7 @@
 		D71299FF2A82868E00BD7ADC /* NavController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71299FE2A82868E00BD7ADC /* NavController+Ext.swift */; };
 		D7129A042A8292A300BD7ADC /* HomeViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7129A032A8292A300BD7ADC /* HomeViews.swift */; };
 		D7129A082A82B0AB00BD7ADC /* UITextField+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7129A072A82B0AB00BD7ADC /* UITextField+Ext.swift */; };
+		D7129A0A2A82E79200BD7ADC /* HTTPURLResponse+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7129A092A82E79200BD7ADC /* HTTPURLResponse+Ext.swift */; };
 		D7753EE32A7D5BD400B94619 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7753EE22A7D5BD400B94619 /* DetailVC.swift */; };
 		D797E0952A7EB70F00891528 /* PokeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D797E0942A7EB70F00891528 /* PokeCell.swift */; };
 		D7AD32652A7D28E000F0B0FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AD32642A7D28E000F0B0FF /* AppDelegate.swift */; };
@@ -29,7 +30,6 @@
 		D7F2D4142A80918A0091AF4C /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F2D4132A80918A0091AF4C /* HTTP.swift */; };
 		D7F2D4162A8092DD0091AF4C /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F2D4152A8092DD0091AF4C /* Endpoint.swift */; };
 		D7F2D4182A809C080091AF4C /* PokeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F2D4172A809C080091AF4C /* PokeService.swift */; };
-		D7F2D41A2A81B9430091AF4C /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F2D4192A81B9430091AF4C /* CheckBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +39,7 @@
 		D71299FE2A82868E00BD7ADC /* NavController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavController+Ext.swift"; sourceTree = "<group>"; };
 		D7129A032A8292A300BD7ADC /* HomeViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViews.swift; sourceTree = "<group>"; };
 		D7129A072A82B0AB00BD7ADC /* UITextField+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ext.swift"; sourceTree = "<group>"; };
+		D7129A092A82E79200BD7ADC /* HTTPURLResponse+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+Ext.swift"; sourceTree = "<group>"; };
 		D7753EE22A7D5BD400B94619 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		D797E0942A7EB70F00891528 /* PokeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeCell.swift; sourceTree = "<group>"; };
 		D7AD32612A7D28E000F0B0FF /* PokemonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokemonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,7 +58,6 @@
 		D7F2D4132A80918A0091AF4C /* HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
 		D7F2D4152A8092DD0091AF4C /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		D7F2D4172A809C080091AF4C /* PokeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeService.swift; sourceTree = "<group>"; };
-		D7F2D4192A81B9430091AF4C /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +157,7 @@
 				D7AD32852A7D329200F0B0FF /* UIColor+Ext.swift */,
 				D71299FE2A82868E00BD7ADC /* NavController+Ext.swift */,
 				D7129A072A82B0AB00BD7ADC /* UITextField+Ext.swift */,
+				D7129A092A82E79200BD7ADC /* HTTPURLResponse+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -167,7 +168,6 @@
 				D7F2D4102A80605A0091AF4C /* PokeApi.swift */,
 				D7AD32822A7D302200F0B0FF /* PokeColors.swift */,
 				D71299F72A8277D900BD7ADC /* PokeFonts.swift */,
-				D7F2D4192A81B9430091AF4C /* CheckBox.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -255,13 +255,13 @@
 			files = (
 				D7F2D40F2A805D410091AF4C /* PokeManager.swift in Sources */,
 				D7AD32862A7D329200F0B0FF /* UIColor+Ext.swift in Sources */,
+				D7129A0A2A82E79200BD7ADC /* HTTPURLResponse+Ext.swift in Sources */,
 				D7F2D4182A809C080091AF4C /* PokeService.swift in Sources */,
 				D7F2D4112A80605A0091AF4C /* PokeApi.swift in Sources */,
 				D7AD32812A7D2B9200F0B0FF /* Pokemon.swift in Sources */,
 				D7F2D4142A80918A0091AF4C /* HTTP.swift in Sources */,
 				D7129A042A8292A300BD7ADC /* HomeViews.swift in Sources */,
 				D7AD327D2A7D29B600F0B0FF /* HomeVC.swift in Sources */,
-				D7F2D41A2A81B9430091AF4C /* CheckBox.swift in Sources */,
 				D7AD32832A7D302200F0B0FF /* PokeColors.swift in Sources */,
 				D7753EE32A7D5BD400B94619 /* DetailVC.swift in Sources */,
 				D7129A082A82B0AB00BD7ADC /* UITextField+Ext.swift in Sources */,
@@ -425,8 +425,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -454,8 +454,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

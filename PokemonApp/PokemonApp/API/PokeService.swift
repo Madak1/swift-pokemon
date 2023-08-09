@@ -7,41 +7,82 @@
 
 import Foundation
 
+
 enum PokeServiceError: Error {
-    case unknownError(String = "An unknown error occurred.")
-    case serverError(String = "A server error occurred.")
-    case localError(String = "A local error occurred.")
-    case decodingError(String = "A decoding error occurred.")
+    
+    // Error cases
+    case invalidRequest
+    case serverError(Int)
+    case networkError(Error)
+    case decodingError(Error)
+    case unexpectedResponseFormat
+    case noDataReceived
+    
+    // Error descriptions
+    var description: String {
+        switch self {
+        case .invalidRequest:
+            return "Invalid request."
+        case .networkError(let error):
+            return "Network Error - Description: \(error.localizedDescription)"
+        case .unexpectedResponseFormat:
+            return "Unexpected response format."
+        case .serverError(let statusCode):
+            return "Server Error - Status code: \(statusCode)"
+        case .decodingError(let error):
+            return "Decoding Error - Description: \(error.localizedDescription)"
+        case .noDataReceived:
+            return "No data received."
+        }
+    }
+    
 }
 
+
 class PokeService {
+    
+    // Fetching JSON data from API
     static func fetchData<T: Decodable>(with endpoint: Endpoint, completion: @escaping (Result<T, PokeServiceError>)->Void) {
-        guard let request = endpoint.request else { return }
-        URLSession.shared.dataTask(with: request) { data, resp, error in
-            // Checking for Local Error
+        
+        // Check request
+        guard let request = endpoint.request else {
+            completion(.failure(.invalidRequest))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            // Check network connectivity issues
             if let error = error {
-                completion(.failure(.localError(error.localizedDescription)))
+                completion(.failure(.networkError(error)))
                 return
             }
-            // Checking for Server Error
-            if let resp = resp as? HTTPURLResponse, resp.statusCode != 200 {
-                completion(.failure(.serverError()))
+            // Check response format
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(.unexpectedResponseFormat))
                 return
             }
-            // Parse the Data
-            if let data = data {
-                do {
-                    let decoder = JSONDecoder()
-                    let pokeData = try decoder.decode(T.self, from: data)
-                    completion(.success(pokeData))
-                } catch let err{
-                    completion(.failure(.decodingError()))
-                    print(err.localizedDescription)
-                }
-            } else {
-                completion(.failure(.unknownError()))
+            // Check server response
+            if !httpResponse.isSuccessful {
+                completion(.failure(.serverError(httpResponse.statusCode)))
+                return
             }
-        }.resume()
+            // Check data
+            guard let data = data else {
+                completion(.failure(.noDataReceived))
+                return
+            }
+            // Decoding
+            do {
+                let decodedData = try JSONDecoder().decode(T.self, from: data)
+                completion(.success(decodedData))
+            } catch let error {
+                completion(.failure(.decodingError(error)))
+            }
+            
+        }
+        task.resume()
     }
+    
 }
 

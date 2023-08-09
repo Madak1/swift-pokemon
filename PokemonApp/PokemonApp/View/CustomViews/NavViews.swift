@@ -22,6 +22,7 @@ class PokeNavController: UINavigationController {
     }
     
     private func setupBar() {
+        // Set the NavigationBar background color to red and the foreground color to white
         self.setNavBarColor(bgColor: PokeColors.darkRed, fgColor: PokeColors.white)
     }
     
@@ -37,6 +38,7 @@ class PokeNavItem: UINavigationItem {
     }
     
     private func setupNavItem() {
+        // Set the Pokemon Logo as a NavigationBar Title
         self.titleView = UIImageView(image: UIImage(named: "PokeLogo"))
     }
     

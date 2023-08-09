@@ -18,47 +18,32 @@ class DetailVC: UIViewController {
     @IBOutlet var ability3Label: UILabel!
     @IBOutlet var statusLabel: UILabel!
     @IBOutlet var catchBtn: PokeButton!
-    
-    @IBOutlet var imageSpinner: UIActivityIndicatorView!
+    @IBOutlet var imageSpinner: PokeSpinner!
     
     weak var delegate: CatchBtnDelegate?
     var pokemon: Pokemon?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupSpinner()
         self.setupImage()
         self.setupLabels()
-    }
-    
-    private func setupSpinner() {
-        imageSpinner.style = .large
-        imageSpinner.color = .gray
-        imageSpinner.hidesWhenStopped = true
-        imageSpinner.startAnimating()
     }
     
     private func setupImage() {
         if let imgUrlString = pokemon?.imageURL {
             guard let imgUrl = URL(string: imgUrlString) else { return }
             let dataTask = URLSession.shared.dataTask(with: imgUrl) { (data, _, error) in
-                if let error = error {
-                    print("Error fetching image: \(error.localizedDescription)")
-                    return
-                }
-                guard let imageData = data else {
-                    print("No image data received.")
-                    return
-                }
+                if let _ = error { return }
+                guard let imageData = data else { return }
                 DispatchQueue.main.async {
                     self.imageView.image = UIImage(data: imageData)
-                    self.imageSpinner.stopAnimating()
+                    self.imageSpinner.offStyle()
                 }
             }
             dataTask.resume()
         } else {
-            self.imageView.image = UIImage(systemName: "questionmark")
-            self.imageSpinner.stopAnimating()
+            self.imageView.image = UIImage(named: "PokeBall")
+            self.imageSpinner.offStyle()
         }
     }
     

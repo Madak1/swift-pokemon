@@ -23,14 +23,35 @@ class PokeImage: UIImageView {
     
 }
 
-// MARK: Pokemon Row Background
+// MARK: Pokemon Image Spinner
+
+class PokeSpinner: UIActivityIndicatorView {
+    
+    required init(coder: NSCoder) {
+        super.init(coder: coder)
+        self.setupSpinner()
+    }
+    
+    func setupSpinner() {
+        self.style = .large
+        self.color = .gray
+        self.hidesWhenStopped = true
+        self.onStyle()
+    }
+    
+    func onStyle() {
+        self.startAnimating()
+    }
+    
+    func offStyle() {
+        self.stopAnimating()
+    }
+    
+}
+
+// MARK: Pokemon Detail Row Background
 
 class PokeRow: UIView {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setupRow()
-    }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -47,14 +68,9 @@ class PokeRow: UIView {
     
 }
 
-// MARK: Pokemon Row Text
+// MARK: Pokemon Detail Row Text
 
 class PokeDetailText: UILabel {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setupText()
-    }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -64,10 +80,10 @@ class PokeDetailText: UILabel {
     private func setupText() {
         self.textColor = PokeColors.detailText
         if self.tag == 0 {
-            self.font = UIFont(name: PokeFonts.detail.style, size: PokeFonts.detail.size)
+            self.font = UIFont(name: PokeFonts.helvetica, size: 21)
         } else {
             self.text = ""
-            self.font = UIFont(name: PokeFonts.detailBold.style, size: PokeFonts.detailBold.size)
+            self.font = UIFont(name: PokeFonts.helveticaBold, size: 21)
         }
     }
 

@@ -9,7 +9,11 @@ import UIKit
 
 class PokeCell: UITableViewCell {
     
+    // MARK: Cell Identifier
+    
     static let identifier = "PokeCell"
+    
+    // MARK: UI components
     
     @IBOutlet var cell: PokeCellBG!
     @IBOutlet var name: UILabel!
@@ -17,9 +21,12 @@ class PokeCell: UITableViewCell {
     @IBOutlet var status: UILabel!
     @IBOutlet var catchBtn: PokeButton!
     
-    weak var delegate: CatchBtnDelegate?
+    // MARK: Variables
     
+    weak var delegate: CatchBtnDelegate?
     private var pokemon: Pokemon!
+    
+    // MARK: Setup the cell
     
     func configure(with pokemon: Pokemon) {
         self.pokemon = pokemon
@@ -30,6 +37,8 @@ class PokeCell: UITableViewCell {
         self.pokemon.isCaught ? cell.onStyle() : cell.offStyle()
     }
 
+    // MARK: Catch Button
+    
     @IBAction func catchBtnTapped(_ sender: UIButton) {
         pokemon?.isCaught.toggle()
         if let poke = pokemon {

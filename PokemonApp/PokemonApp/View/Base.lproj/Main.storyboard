@@ -103,7 +103,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FKP-H8-Ywn" customClass="PokeCellBG" customModule="PokemonApp" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="10" width="220" height="40"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="544-vR-nND" customClass="PokeCellText" customModule="PokemonApp" customModuleProvider="target">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="544-vR-nND" customClass="PokeCellText" customModule="PokemonApp" customModuleProvider="target">
                                                             <rect key="frame" x="10" y="12.333333333333332" width="70" height="15.666666666666668"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="70" id="Mcd-1W-Px5"/>
@@ -112,7 +112,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="hXs-yr-suO" customClass="PokeCellText" customModule="PokemonApp" customModuleProvider="target">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="hXs-yr-suO" customClass="PokeCellText" customModule="PokemonApp" customModuleProvider="target">
                                                             <rect key="frame" x="90" y="12.333333333333332" width="70" height="15.666666666666668"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="70" id="W33-Us-alT"/>
@@ -135,7 +135,10 @@
                                                     <constraints>
                                                         <constraint firstItem="544-vR-nND" firstAttribute="centerY" secondItem="FKP-H8-Ywn" secondAttribute="centerY" id="5xZ-dK-AOO"/>
                                                         <constraint firstItem="kP7-Xy-xbE" firstAttribute="centerY" secondItem="FKP-H8-Ywn" secondAttribute="centerY" id="9Ae-p8-h90"/>
+                                                        <constraint firstItem="hXs-yr-suO" firstAttribute="height" relation="lessThanOrEqual" secondItem="FKP-H8-Ywn" secondAttribute="height" multiplier="0.391667" id="Dvo-61-4PS"/>
+                                                        <constraint firstAttribute="height" constant="40" id="GiP-7T-lnh"/>
                                                         <constraint firstAttribute="trailing" secondItem="kP7-Xy-xbE" secondAttribute="trailing" constant="10" id="Hg3-Tj-sba"/>
+                                                        <constraint firstItem="544-vR-nND" firstAttribute="height" relation="lessThanOrEqual" secondItem="FKP-H8-Ywn" secondAttribute="height" multiplier="0.391667" id="JVw-tG-Weu"/>
                                                         <constraint firstItem="544-vR-nND" firstAttribute="leading" secondItem="FKP-H8-Ywn" secondAttribute="leading" constant="10" id="bzG-PJ-gXm"/>
                                                         <constraint firstItem="hXs-yr-suO" firstAttribute="leading" secondItem="544-vR-nND" secondAttribute="trailing" constant="10" id="mCp-Li-WSU"/>
                                                         <constraint firstItem="kP7-Xy-xbE" firstAttribute="leading" secondItem="hXs-yr-suO" secondAttribute="trailing" constant="10" id="nNF-9y-lZO"/>
@@ -145,6 +148,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRf-EL-abe" customClass="PokeButton" customModule="PokemonApp" customModuleProvider="target">
                                                     <rect key="frame" x="250" y="10" width="123" height="40"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="L3S-Sm-8TL"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="faz-2E-yTA"/>
                                                     </constraints>
                                                     <state key="normal" title="Button"/>

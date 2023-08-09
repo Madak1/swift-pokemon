@@ -9,6 +9,8 @@ import UIKit
 
 class HomeVC: UIViewController {
     
+    // MARK: UI components
+    
     @IBOutlet var searchBar: UITextField!
     @IBOutlet var typeSelectTextField: UITextField!
     @IBOutlet var checkBox: PokeCheckBox!
@@ -16,7 +18,11 @@ class HomeVC: UIViewController {
     var tableViewSpinner = UIActivityIndicatorView()
     var typePickerView = UIPickerView()
     
+    // MARK: Variables
+    
     private let pokeManager: PokeManager = PokeManager()
+    
+    // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +30,8 @@ class HomeVC: UIViewController {
         self.getPokemonTypes()
         self.getPokemons()
     }
+    
+    // MARK: Get Pokemons and types
     
     private func getPokemonTypes() {
         self.pokeManager.fetchPokemonTypes()
@@ -44,6 +52,8 @@ class HomeVC: UIViewController {
         }
     }
     
+    // MARK: Setup Loading Spinner
+    
     private func setupSpinner() {
         view.addSubview(tableViewSpinner)
         
@@ -57,11 +67,15 @@ class HomeVC: UIViewController {
         tableViewSpinner.centerYAnchor.constraint(equalTo: tableView.centerYAnchor).isActive = true
     }
     
+    // MARK: Setup Type Picker
+    
     private func setupPicker() {
         typeSelectTextField.inputView = typePickerView
         typePickerView.delegate = self
         typePickerView.dataSource = self
     }
+    
+    // MARK: Filtering Pokemons
     
     private func startFiltering() {
         let nameFilter = searchBar.text ?? ""
@@ -79,6 +93,8 @@ class HomeVC: UIViewController {
         self.startFiltering()
     }
     
+    // MARK: Prepare for segue
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destVC = segue.destination as! DetailVC
         destVC.delegate = self
@@ -86,6 +102,8 @@ class HomeVC: UIViewController {
     }
     
 }
+
+// MARK: Pokemon TableView
 
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -107,6 +125,8 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     
 }
 
+// MARK: Type Picker
+
 extension HomeVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -126,6 +146,8 @@ extension HomeVC: UIPickerViewDelegate, UIPickerViewDataSource {
         self.startFiltering()
     }
 }
+
+// MARK: Catch Button
 
 protocol CatchBtnDelegate: AnyObject {
     func didChangeStatusValue(id: Int, newValue: Bool)

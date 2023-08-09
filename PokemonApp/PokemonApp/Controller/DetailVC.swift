@@ -9,6 +9,8 @@ import UIKit
 
 class DetailVC: UIViewController {
     
+    // MARK: UI components
+    
     @IBOutlet var imageView: PokeImage!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var weightLabel: UILabel!
@@ -20,14 +22,20 @@ class DetailVC: UIViewController {
     @IBOutlet var catchBtn: PokeButton!
     @IBOutlet var imageSpinner: PokeSpinner!
     
+    // MARK: Variables
+    
     weak var delegate: CatchBtnDelegate?
     var pokemon: Pokemon?
+    
+    // MARK: Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupImage()
         self.setupLabels()
     }
+    
+    // MARK: Setup Pokemon Image
     
     private func setupImage() {
         if let imgUrlString = pokemon?.imageURL {
@@ -46,6 +54,8 @@ class DetailVC: UIViewController {
             self.imageSpinner.offStyle()
         }
     }
+    
+    // MARK: Setup Pokemon detail Labels
     
     private func setupLabels() {
         if let poke = self.pokemon {
@@ -67,6 +77,8 @@ class DetailVC: UIViewController {
             poke.isCaught ? catchBtn.onStyle() : catchBtn.offStyle()
         }
     }
+    
+    // MARK: Catch Button
     
     @IBAction func catchBtnTapped(_ sender: UIButton) {
         pokemon?.isCaught.toggle()

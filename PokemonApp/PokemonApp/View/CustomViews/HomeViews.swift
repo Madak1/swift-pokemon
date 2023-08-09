@@ -113,6 +113,21 @@ class PokeListTitle: UILabel {
     
 }
 
+// MARK: Pokemon List Background
+
+class PokeListBG: UITableView {
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.setupBG()
+    }
+    
+    private func setupBG() {
+        self.backgroundColor = PokeColors.lightBlue
+    }
+    
+}
+
 // MARK: Pokemon Cell Background
 
 class PokeCellBG: UIView {
@@ -137,21 +152,6 @@ class PokeCellBG: UIView {
     func offStyle() {
         self.layer.borderWidth = 1
         self.layer.borderColor = PokeColors.blue.cgColor
-    }
-    
-}
-
-// MARK: Pokemon List Background
-
-class PokeListBG: UITableView {
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.setupBG()
-    }
-    
-    private func setupBG() {
-        self.backgroundColor = PokeColors.lightBlue
     }
     
 }
